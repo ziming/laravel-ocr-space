@@ -14,7 +14,7 @@ class ParsedResult
 
     /**
      * @param array{
-     *      TextOverlay: array{
+     *      TextOverlay?: array{
      *          Lines: array<int, array{
      *              Words: array<int, array{
      *                  WordText: string,
@@ -28,7 +28,7 @@ class ParsedResult
      *          }>,
      *          HasOverlay: bool,
      *          Message: string|null,
-     *      },
+     *      }|null,
      *      FileParseExitCode: string,
      *      ParsedText: string,
      *      ErrorMessage: string|null,
@@ -39,7 +39,7 @@ class ParsedResult
     {
         $textOverlay = null;
 
-        if ($data['TextOverlay'] !== null) {
+        if (isset($data['TextOverlay']) && $data['TextOverlay'] !== null) {
             $lines = collect($data['TextOverlay']['Lines'])
                 ->map(fn (array $line): Line => Line::fromResponse($line));
 
