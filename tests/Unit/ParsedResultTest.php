@@ -8,7 +8,6 @@ it('handles missing TextOverlay key in response data', function (): void {
         'ParsedText' => 'Sample extracted text from image',
         'ErrorMessage' => null,
         'ErrorDetails' => null,
-        // Note: TextOverlay key is missing, which was causing the original error
     ];
 
     $result = ParsedResult::fromResponse($responseDataWithoutTextOverlay);
@@ -49,15 +48,15 @@ it('handles valid TextOverlay in response data', function (): void {
                             'Left' => 10,
                             'Top' => 20,
                             'Height' => 15,
-                            'Width' => 30
-                        ]
+                            'Width' => 30,
+                        ],
                     ],
                     'MaxHeight' => 15,
                     'MinTop' => 20,
-                ]
+                ],
             ],
             'HasOverlay' => true,
-            'Message' => null
+            'Message' => null,
         ],
         'FileParseExitCode' => '1',
         'ParsedText' => 'Hello',
@@ -71,6 +70,6 @@ it('handles valid TextOverlay in response data', function (): void {
         ->and($result->getParsedText())->toBe('Hello')
         ->and($result->getFileParseExitCode())->toBe('1')
         ->and($result->getTextOverlay())->not()->toBeNull()
-        ->and($result->getTextOverlay()->hasOverlay())->toBeTrue()
-        ->and($result->getTextOverlay()->getLines())->toHaveCount(1);
+        ->and($result->getTextOverlay()?->hasOverlay())->toBeTrue()
+        ->and($result->getTextOverlay()?->getLines())->toHaveCount(1);
 });
