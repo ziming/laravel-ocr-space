@@ -62,7 +62,7 @@ $imageUrl = 'https://example.com/image.jpg';
 
 $options = new \Codesmiths\LaravelOcrSpace\OcrSpaceOptions();
 
-$result = OcrSapce::parseImageUrl(
+$result = OcrSpace::parseImageUrl(
     $imageUrl,
     OcrSpaceOptions::make(),
 );
@@ -144,8 +144,31 @@ $options = OcrSpaceOptions::make()
         ->isSearchablePdfHideTextLayer(true)
         ->scale(true)
         ->isTable(true)
-        ->OCREngine(OcrSpaceEngine::Engine1);
+        ->OCREngine(OcrSpaceEngine::Engine1); // Engine1, Engine2, or Engine3
 
+```
+
+#### OCR Engines
+
+OCR.Space provides three different OCR engines:
+
+- **Engine1**: The original OCR engine, best for standard documents
+- **Engine2**: Improved OCR engine with better accuracy for most use cases
+- **Engine3**: The latest engine with significantly superior text recognition capabilities
+
+You can specify which engine to use:
+
+```php
+use Codesmiths\LaravelOcrSpace\Enums\OcrSpaceEngine;
+
+// Use Engine 1
+$options = OcrSpaceOptions::make()->ocrEngine(OcrSpaceEngine::Engine1);
+
+// Use Engine 2
+$options = OcrSpaceOptions::make()->ocrEngine(OcrSpaceEngine::Engine2);
+
+// Use Engine 3 (recommended for best accuracy)
+$options = OcrSpaceOptions::make()->ocrEngine(OcrSpaceEngine::Engine3);
 ```
 
 ### Response
